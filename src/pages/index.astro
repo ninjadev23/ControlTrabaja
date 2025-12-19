@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NavbarPublic from '../components/Landing/NavbarPublic.astro';
+import { Users, Building2, Globe, Star } from 'lucide-react';
+---
+
+<Layout title="Inicio">
+    <NavbarPublic />
+    
+    <section class="bg-[#1e293b] text-white py-20 px-4 text-center relative overflow-hidden">
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="inline-block border border-orange-500 text-orange-400 px-4 py-1 rounded-full text-sm mb-6 bg-orange-900/20">
+                🛡 Plataforma verificada y confiable
+            </div>
+            <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+                La Red Profesional de la <span class="text-orange-500">Construcción en Chile</span>
+            </h1>
+            <p class="text-gray-300 text-lg mb-10 max-w-2xl mx-auto">
+                Conecta con <span class="text-orange-400 font-semibold">maestros de obra</span>, <span class="text-blue-400 font-semibold">técnicos especializados</span>, <span class="text-green-400 font-semibold">ingenieros</span> y <span class="text-purple-400 font-semibold">proveedores</span>. Construye tu red profesional hoy.
+            </p>
+            
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="/register" class="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-md font-bold text-lg transition flex items-center justify-center gap-2">
+                    👷 Crear Mi Perfil Profesional
+                </a>
+                <a href="/login" class="border border-gray-500 hover:border-white text-white px-8 py-3 rounded-md font-medium transition">
+                    Explorar Profesionales
+                </a>
+            </div>
+        </div>
+        </section>
+
+    <section class="bg-gray-50 py-16 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">La comunidad más grande de construcción en Chile</h2>
+            <p class="text-gray-500 mb-12">Miles de profesionales confían en ControlObra.</p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="flex flex-col items-center">
+                    <div class="bg-orange-600 p-4 rounded-xl text-white mb-4"><Users size={32} /></div>
+                    <span class="text-3xl font-bold text-gray-800">2,500+</span>
+                    <span class="text-gray-500 text-sm">Profesionales</span>
+                </div>
+                 <div class="flex flex-col items-center">
+                    <div class="bg-orange-600 p-4 rounded-xl text-white mb-4"><Building2 size={32} /></div>
+                    <span class="text-3xl font-bold text-gray-800">15,000+</span>
+                    <span class="text-gray-500 text-sm">Proyectos</span>
+                </div>
+                 <div class="flex flex-col items-center">
+                    <div class="bg-orange-600 p-4 rounded-xl text-white mb-4"><Globe size={32} /></div>
+                    <span class="text-3xl font-bold text-gray-800">200+</span>
+                    <span class="text-gray-500 text-sm">Empresas</span>
+                </div>
+                 <div class="flex flex-col items-center">
+                    <div class="bg-orange-600 p-4 rounded-xl text-white mb-4"><Star size={32} /></div>
+                    <span class="text-3xl font-bold text-gray-800">4.8/5</span>
+                    <span class="text-gray-500 text-sm">Calificación</span>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>
