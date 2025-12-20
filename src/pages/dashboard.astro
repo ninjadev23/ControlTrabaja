@@ -14,8 +14,8 @@ if (!token) {
 let userData = null;
 
 try {
-    const API_URL = import.meta.env.PUBLIC_API_URL;
-    const response = await fetch(`${API_URL}/api/profile`, {
+    const PUBLIC_API_URL = import.meta.env.PUBLIC_API_URL;
+    const response = await fetch(`${PUBLIC_API_URL}/api/profile`, {
         headers: {
             'Content-Type': 'application/json',
             'Cookie': `access_token=${token}`,

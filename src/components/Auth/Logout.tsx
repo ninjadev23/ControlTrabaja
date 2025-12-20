@@ -3,10 +3,10 @@ import { LogOut } from 'lucide-react';
 
 export default function UserMenu() {
     const handleLogout = async () => {
-    const API_URL = import.meta.env.PUBLIC_API_URL;
+    const PUBLIC_API_URL = import.meta.env.PUBLIC_API_URL;
 
     try {
-        await fetch(`${API_URL}/api/logout`, {
+        await fetch(`${PUBLIC_API_URL}/api/logout`, {
             method: 'DELETE',
             credentials: 'include'
         });

@@ -3,7 +3,7 @@ import { defineMiddleware } from "astro:middleware";
 export const onRequest = defineMiddleware(async (context, next) => {
     const { cookies, url, redirect } = context;
     const accessToken = cookies.get("access_token")?.value; // Obtenemos el valor del string
-    const API_URL = import.meta.env.PUBLIC_API_URL;
+    const PUBLIC_API_URL = import.meta.env.PUBLIC_API_URL;
 
     const isDashboard = url.pathname.startsWith("/dashboard");
     const isAuthPage = url.pathname === "/login" || url.pathname === "/register";
@@ -12,7 +12,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
         if (!accessToken) return redirect("/login");
 
         try {
-            const response = await fetch(`${API_URL}/api/profile`, {
+            const response = await fetch(`${PUBLIC_API_URL}/api/profile`, {
                 headers: { 
                     'Authorization': `Bearer ${accessToken}`,
                     'Cookie': `access_token=${accessToken}`

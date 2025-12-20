@@ -3,7 +3,7 @@ import AuthLayout from './AuthLayout';
 
 export default function LoginForm() {
     const [loading, setLoading] = useState(false);
-    const API_URL = import.meta.env.PUBLIC_API_URL;
+    const PUBLIC_API_URL = import.meta.env.PUBLIC_API_URL;
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -11,7 +11,7 @@ export default function LoginForm() {
         const data = Object.fromEntries(formData);
 
         try {
-            const response = await fetch(`${API_URL}/api/login`, {
+            const response = await fetch(`${PUBLIC_API_URL}/api/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -31,8 +31,8 @@ export default function ProfileManager({ initialUser }) {
     const formData = new FormData(e.target);
 
     try {
-      const API_URL = import.meta.env.PUBLIC_API_URL;
-      const res = await fetch(`${API_URL}/api/update-profile`, {
+      const PUBLIC_API_URL = import.meta.env.PUBLIC_API_URL;
+      const res = await fetch(`${PUBLIC_API_URL}/api/update-profile`, {
         method: 'PUT',
         body: formData,
         credentials: 'include',
