@@ -25,38 +25,51 @@ export default function ProfileManager({ initialUser }) {
     if (file) setPreview(URL.createObjectURL(file));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    const formData = new FormData(e.target);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
 
-    try {
-      const PUBLIC_API_URL = import.meta.env.PUBLIC_API_URL;
-      const res = await fetch(`${PUBLIC_API_URL}/api/update-profile`, {
-        method: 'PUT',
-        body: formData,
-        credentials: 'include',
-      });
-
-      if (res.ok) {
-        const data = await res.json();
-        const updatedUser = {
-          ...data.user,
-          profilePhoto: `${data.user.profilePhoto}?t=${Date.now()}`
-        };
-        setUser(updatedUser);
-        setIsEditing(false);
-        showMsg("¡Perfil actualizado correctamente!", "success");
-      } else {
-        const err = await res.json();
-        showMsg(err.message || "Error al actualizar", "error");
-      }
-    } catch (err) {
-      showMsg("Error de conexión con el servidor", "error");
-    } finally {
-      setLoading(false);
-    }
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(';').shift();
   };
+
+  const token = getCookie('access_token');
+  const formData = new FormData(e.currentTarget);
+
+  try {
+    const PUBLIC_API_URL = import.meta.env.PUBLIC_API_URL;
+    
+    const res = await fetch(`${PUBLIC_API_URL}/api/update-profile`, {
+      method: 'PUT',
+      body: formData,
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      credentials: 'include',
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      const updatedUser = {
+        ...data.user,
+        profilePhoto: `${data.user.profilePhoto}${data.user.profilePhoto.includes('?') ? '&' : '?'}t=${Date.now()}`
+      };
+      setUser(updatedUser);
+      setIsEditing(false);
+      showMsg("¡Perfil actualizado correctamente!", "success");
+    } else {
+      const err = await res.json();
+      showMsg(err.message || "Error al actualizar", "error");
+    }
+  } catch (err) {
+    console.error("Fetch error:", err);
+    showMsg("Error de conexión con el servidor", "error");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 relative">
@@ -90,7 +103,6 @@ export default function ProfileManager({ initialUser }) {
         </div>
       </div>
 
-      {/* GRID DE INFORMACIÓN (VISTA) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 flex flex-col items-center text-center">
           <div className="w-32 h-32 rounded-full overflow-hidden mb-4 border-4 border-blue-50 shadow-inner">
