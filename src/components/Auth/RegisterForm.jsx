@@ -31,6 +31,10 @@ export default function RegisterForm() {
       });
 
       if (response.ok) {
+        const data = await response.json();
+        if(data.token) {
+            document.cookie = `access_token=${data.token}; path=/; max-age=${60 * 60 * 24 * 20}; SameSite=Lax; Secure`;
+        }
         setStatus({ type: 'success', message: "¡Cuenta creada! Redirigiendo..." });
         setTimeout(() => {
           window.location.href = '/dashboard';

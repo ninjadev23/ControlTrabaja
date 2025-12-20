@@ -3,25 +3,20 @@ import { LogOut } from 'lucide-react';
 
 export default function UserMenu() {
     const handleLogout = async () => {
-        const API_URL = import.meta.env.PUBLIC_API_URL;
-        try {
-            const response = await fetch(`${API_URL}/api/logout`, {
-                method: 'DELETE',
-                headers: {
-                    'Accept': 'application/json'
-                },
-                credentials: 'include', 
-            });
+    const API_URL = import.meta.env.PUBLIC_API_URL;
 
-            if (response.ok) {
-                window.location.assign('/');
-            } else {
-                console.error("Error al cerrar sesión en el servidor");
-            }
-        } catch (error) {
-            console.error("Error de red:", error);
-        }
-    };
+    try {
+        await fetch(`${API_URL}/api/logout`, {
+            method: 'DELETE',
+            credentials: 'include'
+        });
+    } catch (err) {
+        console.error("Error al avisar al backend del logout", err);
+    } finally {
+        document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        window.location.href = '/login';
+    }
+};
 
     return (
         <button 

@@ -1,0 +1,18 @@
+---
+// auth-callback.astro
+---
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+
+    if (token) {
+        document.cookie = `access_token=${token}; path=/; max-age=${60 * 60 * 24 * 20}; SameSite=Lax; Secure`;
+        window.location.href = '/dashboard';
+    } else {
+        window.location.href = '/login?error=no_token';
+    }
+</script>
+
+<div class="flex h-screen items-center justify-center">
+    <p class="animate-pulse font-bold text-blue-600">Autenticando, por favor espera...</p>
+</div>

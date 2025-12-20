@@ -22,7 +22,8 @@ export default function LoginForm() {
             });
 
             if (response.ok) {
-                // La cookie se setea automáticamente si la API envía Set-Cookie
+                const ResponseData = await response.json();
+                document.cookie = `access_token=${ResponseData.token}; path=/; max-age=${60 * 60 * 24 * 20}; SameSite=Lax; Secure`;
                 window.location.assign('/dashboard');
             } else {
                 alert('Credenciales incorrectas');
